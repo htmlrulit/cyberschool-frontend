@@ -176,18 +176,17 @@ const App = () => {
 
               <ModalPage
                   id="welcome"
+                  settlingWidth={90} // Установка ширины модального окна в процентах от ширины экрана
                   onClose={closeModal}
                   header={
-                    <ModalPageHeader
-                        after={<PanelHeaderSubmit onClick={closeModal} />}
-                    >
+                    <ModalPageHeader>
                       Привет!
                     </ModalPageHeader>
                   }
               >
                 <Group>
                   <center>
-                    <img width={100} height={100} src={logo} alt={"logo"} style={{marginTop: "10px"}}></img>
+                    <img width={100} height={100} src={logo} alt="logo" style={{marginTop: "10px"}}></img>
                   </center>
                   <Placeholder>Добро пожаловать в КиберШколу!</Placeholder>
                   <Text style={{marginLeft: "5%"}}>Присоединяйтесь к пользователям, которые уже улучшают свои
@@ -212,9 +211,9 @@ const App = () => {
                   <Text style={{marginLeft: "5%", marginTop: "10px", marginBottom: "50px"}}>Если Вы нашли недочёт
                     или ошибку в курсе/тесте, то Вы всегда можете
                     сообщить об этом <a href="https://vk.com/cyberschool_app" target="_blank">нам</a>. Спасибо!</Text>
-
                 </Group>
               </ModalPage>
+
 
               <ModalPage
                   id="congratulation"

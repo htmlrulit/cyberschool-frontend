@@ -94,12 +94,12 @@ const TestPage = ({ training, onFinish, testId }) => {
             const signature = await generateSignature(signedParams);
             signedParams.sign = signature;
 
-            const response = await fetch('https://localhost:3000/save-test-result', {
+            const response = await fetch('https://htvk.ru:3000/save-test-result', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-Launch-Params': JSON.stringify(launchParams),
-                    'X-Signature': signature
+                    'X-Launch-Params': JSON.stringify(launchParams), // Передача параметров запуска
+                    'X-Signature': signature // Передача подписи
                 },
                 body: JSON.stringify(signedParams)
             });

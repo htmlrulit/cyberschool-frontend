@@ -1,15 +1,15 @@
 .correct-answer-badge {
-    background-color: rgba(76, 175, 80, 0.5);
+    background-color: rgba(76, 175, 80, 0.5); /* зеленый цвет с прозрачностью */
     color: white;
     padding: 8px 16px;
     border-radius: 16px;
-    margin-bottom: 8px;
+    margin-bottom: 8px; /* отступ снизу */
 }
 
 .incorrect-answer-badge {
-    background-color: rgba(244, 67, 54, 0.5);
+    background-color: rgba(244, 67, 54, 0.5); /* красный цвет с прозрачностью */
     color: white;
     padding: 8px 16px;
     border-radius: 16px;
-    margin-bottom: 8px;
+    margin-bottom: 8px; /* отступ снизу */
 }

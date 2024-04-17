@@ -4,7 +4,12 @@ import article1Pages from './articles/article-1';
 import article2Pages from './articles/article-2';
 import article3Pages from './articles/article-3';
 import article4Pages from "./articles/article-4";
-
+import article5Pages from "./articles/article-5";
+import article6Pages from "./articles/article-6";
+import article7Pages from "./articles/article-7";
+import article8Pages from "./articles/article-8";
+import article9Pages from "./articles/article-9";
+import article10Pages from "./articles/article-10";
 const TrainingPage = ({ material, openModal, onFinish, selectedBanner }) => {
     const [progress, setProgress] = useState(0);
     const [currentPage, setCurrentPage] = useState(0);
@@ -25,6 +30,24 @@ const TrainingPage = ({ material, openModal, onFinish, selectedBanner }) => {
                 break;
             case 4:
                 pages = article4Pages;
+                break;
+            case 5:
+                pages = article5Pages;
+                break;
+            case 6:
+                pages = article6Pages;
+                break;
+            case 7:
+                pages = article7Pages;
+                break;
+            case 8:
+                pages = article8Pages;
+                break;
+            case 9:
+                pages = article9Pages;
+                break;
+            case 10:
+                pages = article10Pages;
                 break;
             default:
                 pages = article1Pages;
@@ -51,6 +74,24 @@ const TrainingPage = ({ material, openModal, onFinish, selectedBanner }) => {
             case 4:
                 pages = article4Pages;
                 break;
+            case 5:
+                pages = article5Pages;
+                break;
+            case 6:
+                pages = article6Pages;
+                break;
+            case 7:
+                pages = article7Pages;
+                break;
+            case 8:
+                pages = article8Pages;
+                break;
+            case 9:
+                pages = article9Pages;
+                break;
+            case 10:
+                pages = article10Pages;
+                break;
             default:
                 pages = article1Pages;
         }
@@ -75,7 +116,18 @@ const TrainingPage = ({ material, openModal, onFinish, selectedBanner }) => {
                 return article3Pages;
             case 4:
                 return article4Pages;
-
+            case 5:
+                return article5Pages;
+            case 6:
+                return article6Pages;
+            case 7:
+                return article7Pages;
+            case 8:
+                return article8Pages;
+            case 9:
+                return article9Pages;
+            case 10:
+                return article10Pages;
             default:
                 return article1Pages;
         }

@@ -44,7 +44,7 @@ const TestTab = () => {
             try {
                 setLoading(true);
                 const userId = await getUserId();
-                const response = await fetch(`https://localhost:3000/tests?user_id=${userId}`);
+                const response = await fetch(`https://htvk.ru:3000/tests?user_id=${userId}`);
                 const data = await response.json();
                 setTestResults(data);
             } catch (error) {
@@ -59,7 +59,7 @@ const TestTab = () => {
 
     const fetchTestResult = async (userId, testId) => {
         try {
-            const response = await fetch(`https://localhost:3000/tests?user_id=${userId}&test_id=${testId}`);
+            const response = await fetch(`https://htvk.ru:3000/tests?user_id=${userId}&test_id=${testId}`);
             const data = await response.json();
             return data.length > 0 ? data[0] : null;
         } catch (error) {

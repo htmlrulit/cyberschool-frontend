@@ -29,7 +29,7 @@ const ProfileTab = ({ id, showSnackbar}) => {
         if (user && !testsCountFetched) {
             const fetchUserTestsCount = async () => {
                 try {
-                    const testsCountResponse = await axios.get(`https://localhost:3000/api/user-tests-count?user_id=${user.id}`);
+                    const testsCountResponse = await axios.get(`https://htvk.ru:3000/api/user-tests-count?user_id=${user.id}`);
                     const testsCountData = testsCountResponse.data.tests_count;
                     setTestsCount(testsCountData);
                     setTestsCountFetched(true);
@@ -59,7 +59,7 @@ const ProfileTab = ({ id, showSnackbar}) => {
         if (user) {
             const fetchTopUsers = async () => {
                 try {
-                    const topUsersResponse = await axios.get('https://localhost:3000/api/topusers');
+                    const topUsersResponse = await axios.get('https://htvk.ru:3000/api/topusers');
                     const topUsersData = topUsersResponse.data;
                     const updatedTopUsers = await Promise.all(
                         topUsersData.map(async (user) => {
