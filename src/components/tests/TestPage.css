@@ -1,0 +1,15 @@
+.correct-answer-badge {
+    background-color: rgba(76, 175, 80, 0.5);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 16px;
+    margin-bottom: 8px;
+}
+
+.incorrect-answer-badge {
+    background-color: rgba(244, 67, 54, 0.5);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 16px;
+    margin-bottom: 8px;
+}
