@@ -3,7 +3,7 @@ const SecondPage25 = ({ onNextPage }) => {
 
     return (
         <Panel id="cyber-security-article-part7">
-            <PanelHeader>51-54</PanelHeader>
+            <Header>51-54</Header>
             <Div>
                 <Header mode="secondary">51. Adware</Header>
                 <Text>Это вредоносное ПО, отображающее на компьютере жертвы нежелательную рекламу.

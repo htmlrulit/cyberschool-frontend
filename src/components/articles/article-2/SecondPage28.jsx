@@ -4,7 +4,7 @@ const SecondPage28 = ({ onNextPage }) => {
 
     return (
         <Panel id="cyber-security-article-part7">
-            <PanelHeader>Заключение</PanelHeader>
+            <Header>Заключение</Header>
             <Div>
                 <Header mode="secondary">Заключение</Header>
                 <Text>В этой статье, посвященной типам кибератак, вы узнали все о кибератаках. Вы рассмотрели,

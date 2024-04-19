@@ -3,7 +3,7 @@ const SecondPage20 = ({ onNextPage }) => {
 
     return (
         <Panel id="cyber-security-article-part7">
-            <PanelHeader>31-34</PanelHeader>
+            <Header>31-34</Header>
             <Div>
                 <Header mode="secondary">31. Атаки межсайтового скриптинга (XSS)</Header>
                 <Text>Злоумышленник вставляет неавторизованный код в легитимный веб-сайт, чтобы получить доступ к

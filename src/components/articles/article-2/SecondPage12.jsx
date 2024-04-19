@@ -3,7 +3,7 @@ const SecondPage12 = ({ onNextPage }) => {
 
     return (
         <Panel id="cyber-security-article-part7">
-            <PanelHeader>11. Подмена</PanelHeader>
+            <Header>11. Подмена</Header>
             <Div>
                 <Header mode="secondary">11. Подмена</Header>
                 <Text>Злоумышленник выдает себя за кого-то или что-то другое, чтобы получить доступ к конфиденциальной

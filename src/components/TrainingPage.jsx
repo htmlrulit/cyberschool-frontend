@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Progress, usePlatform, ButtonGroup, Div } from '@vkontakte/vkui';
 import article1Pages from './articles/article-1';
 import article2Pages from './articles/article-2';
@@ -10,11 +10,16 @@ import article7Pages from "./articles/article-7";
 import article8Pages from "./articles/article-8";
 import article9Pages from "./articles/article-9";
 import article10Pages from "./articles/article-10";
+
 const TrainingPage = ({ material, openModal, onFinish, selectedBanner }) => {
     const [progress, setProgress] = useState(0);
     const [currentPage, setCurrentPage] = useState(0);
 
     usePlatform();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [currentPage]);
 
     const handleNextPage = () => {
         let pages;
@@ -58,6 +63,7 @@ const TrainingPage = ({ material, openModal, onFinish, selectedBanner }) => {
             setProgress(((currentPage + 1) / (pages.length - 1)) * 100);
         }
     };
+
 
     const handleGoBack = () => {
         let pages;
@@ -137,7 +143,7 @@ const TrainingPage = ({ material, openModal, onFinish, selectedBanner }) => {
 
     return (
         <Div>
-            <Progress value={progress} />
+            <Progress style={{marginTop: "20px"}} value={progress} />
             <div>
                 {React.createElement(pages[currentPage], { onNextPage: handleNextPage })}
             </div>

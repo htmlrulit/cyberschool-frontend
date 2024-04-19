@@ -16,7 +16,7 @@ import {
   Text,
   Snackbar,
   Tabbar,
-  TabbarItem, Group, Placeholder, Div, PanelHeaderSubmit
+  TabbarItem, Group, Placeholder, Div, Header
 } from '@vkontakte/vkui';
 import { CSSTransition } from 'react-transition-group';
 import '@vkontakte/vkui/dist/vkui.css';
@@ -24,7 +24,6 @@ import Home from './panels/Home';
 import TestTab from './components/tests/TestTab.jsx';
 import ProfileTab from './components/ProfileTab';
 import TrainingTab from './components/TrainingTab';
-import logo from "./logo.png"
 import axios from "axios";
 import {
   Icon28CheckCircleFill,
@@ -76,7 +75,7 @@ const App = () => {
   const handleFinishTraining = async () => {
     try {
       const points = 100;
-      const response = await axios.put(`http://localhost:3000/api/user/${userId}/score`, { points });
+      const response = await axios.put(`https://htvk.ru:3000/api/user/${userId}/score`, { points });
       const updatedUser = response.data;
       setScore(updatedUser.score);
       openModal('congratulation');
@@ -120,8 +119,6 @@ const App = () => {
                   )}
                   <TrainingTab id="trainingtab" openModal={openModal} onFinish={handleFinishTraining} />
                   <TestTab id="tests" selectedTraining={selectedTraining} />
-
-                  <ProfileTab id="profile" showSnackbar={showSnackbar} />
                 </View>
               </SplitCol>
 
@@ -163,7 +160,7 @@ const App = () => {
 
             {showSnackbar}
             <CSSTransition
-                in={activeModal === 'congratulation'}
+                in={activeModal === 'congratulation' && activeTab === 'profile'}
                 classNames="modal-animation"
                 timeout={300}
                 unmountOnExit
@@ -172,37 +169,36 @@ const App = () => {
                 <ProfileTab id="profile" showSnackbar={handleShowSnackbar} />
               </Suspense>
             </CSSTransition>
+
             <ModalRoot activeModal={activeModal}>
 
               <ModalPage
                   id="welcome"
-                  settlingWidth={90} // Установка ширины модального окна в процентах от ширины экрана
+                  settlingWidth={90}
                   onClose={closeModal}
                   header={
                     <ModalPageHeader>
-                      Привет!
+                      КиберШкола
                     </ModalPageHeader>
                   }
               >
                 <Group>
-                  <center>
-                    <img width={100} height={100} src={logo} alt="logo" style={{marginTop: "10px"}}></img>
-                  </center>
-                  <Placeholder>Добро пожаловать в КиберШколу!</Placeholder>
+                  <Div>
+                  <Header>Добро пожаловать в КиберШколу!</Header>
                   <Text style={{marginLeft: "5%"}}>Присоединяйтесь к пользователям, которые уже улучшают свои
-                    знания в киберпространстве! КиберШкола предлагает широкий спектр тестов по тематике безопасности
+                    знания в киберпространстве! «КиберШкола» предлагает широкий спектр тестов по тематике безопасности
                     в Интернете, что позволяет Вам проверять и углублять знания в интересующих вас областях.</Text>
                   <Text style={{marginLeft: "5%", marginTop: "10px", marginBottom: "5px"}}>Возможности, которые
                     Вы полюбите:</Text>
                   <li style={{marginLeft: "5%"}}>Курсы: читайте минималистичные, но подробные курсы на тему
-                    безопасности в киберпространстве</li>
-                  <li style={{marginLeft: "5%"}}>Тесты: проходите тесты, чтобы закрепить свои знания</li>
+                    безопасности в киберпространстве;</li>
+                  <li style={{marginLeft: "5%"}}>Тесты: проходите тесты, чтобы закрепить свои знания;</li>
                   <li style={{marginLeft: "5%"}}>Рейтинг: соревнуйтесь с другими пользователями своими достижениями
-                    в тестах</li>
-                  <li style={{marginLeft: "5%"}}>Аналитика и отчеты: Следите за своим прогрессом с помощью статистики
-                    и отчетов</li>
+                    в тестах;</li>
+                  <li style={{marginLeft: "5%"}}>Аналитика и отчеты: следите за своим прогрессом с помощью статистики
+                    и отчетов.</li>
                   <Text style={{marginLeft: "5%", marginTop: "10px", marginBottom: "5px"}}>Начните свое обучение с
-                    КиберШколой сегодня и сделайте большой шаг
+                    «КиберШколой» сегодня и сделайте большой шаг
                     к достижению своих образовательных и профессиональных целей!</Text>
                   <Text style={{marginLeft: "5%", marginTop: "10px", marginBottom: "5px"}}>Приложение предоставляется
                     на бесплатной основе и не преследует
@@ -211,13 +207,18 @@ const App = () => {
                   <Text style={{marginLeft: "5%", marginTop: "10px", marginBottom: "50px"}}>Если Вы нашли недочёт
                     или ошибку в курсе/тесте, то Вы всегда можете
                     сообщить об этом <a href="https://vk.com/cyberschool_app" target="_blank">нам</a>. Спасибо!</Text>
+                  </Div>
                 </Group>
               </ModalPage>
 
 
               <ModalPage
                   id="congratulation"
-                  onClose={closeModal}
+                  onClose={() => {
+                    closeModal();
+                    setActiveTab('tests');
+                    setView('tests');
+                  }}
                   header={
                     <ModalPageHeader>Завершение</ModalPageHeader>
                   }

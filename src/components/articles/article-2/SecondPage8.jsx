@@ -1,9 +1,9 @@
-import { Panel, PanelHeader, Div, Text, Header} from '@vkontakte/vkui';
+import {Panel, PanelHeader, Div, Text, Header, Title} from '@vkontakte/vkui';
 const SecondPage8 = ({ onNextPage }) => {
 
     return (
         <Panel id="cyber-security-article-part7">
-            <PanelHeader>7. Инсайдерская угроза</PanelHeader>
+            <Header>7. Инсайдерская угроза</Header>
             <Div>
                 <Header mode="secondary">7. Инсайдерская угроза</Header>
                 <Text>Как следует из названия, в инсайдерской угрозе участвует не третья сторона, а сам инсайдер.
@@ -15,7 +15,7 @@ const SecondPage8 = ({ onNextPage }) => {
                     предсказать, а значит, они коварны.</Text><br/>
             </Div>
             <Div>
-                <Header mode="secondary">Для предотвращения атаки внутренней угрозы:</Header>
+                <Title level="2">Для предотвращения атаки внутренней угрозы:</Title>
                 <ul>
                     <li>В организациях должна быть развита культура осознания безопасности.</li>
                     <li>Компании должны ограничивать доступ сотрудников к ИТ-ресурсам в зависимости от их

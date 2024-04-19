@@ -3,7 +3,7 @@ const SecondPage14 = ({ onNextPage }) => {
 
     return (
         <Panel id="cyber-security-article-part7">
-            <PanelHeader>13. Атаки с внедрением кода</PanelHeader>
+            <Header>13. Атаки с внедрением</Header>
             <Div>
                 <Header mode="secondary">13. Атаки с внедрением кода</Header>
                 <Text>Выполняется путем вставки вредоносного кода в программное приложение для манипулирования данными.

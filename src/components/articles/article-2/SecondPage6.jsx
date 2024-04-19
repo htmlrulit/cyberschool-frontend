@@ -3,9 +3,9 @@ const SecondPage6 = ({ onNextPage }) => {
 
     return (
         <Panel id="cyber-security-article-part6">
-            <PanelHeader>5. Атака SQL-инъекцией</PanelHeader>
+            <Header>5. SQL-инъекция</Header>
             <Div>
-                <Header mode="secondary">5. Атака с использованием SQL-инъекций</Header>
+                <Header mode="secondary">5. Атака SQL-инъекцией</Header>
                 <Text>Атака с использованием структурированного языка запросов (SQL) происходит на веб-сайте,
                     управляемом базой данных, когда хакер манипулирует стандартным SQL-запросом. Она осуществляется
                     путем внедрения вредоносного кода в уязвимую поисковую строку сайта, что заставляет сервер

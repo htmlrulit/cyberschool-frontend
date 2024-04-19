@@ -3,7 +3,7 @@ const SecondPage24 = ({ onNextPage }) => {
 
     return (
         <Panel id="cyber-security-article-part7">
-            <PanelHeader>47-50</PanelHeader>
+            <Header>47-50</Header>
             <Div>
                 <Header mode="secondary">47. Социальная инженерия</Header>
                 <Text>Это прием, с помощью которого злоумышленники манипулируют пользователями, заставляя их

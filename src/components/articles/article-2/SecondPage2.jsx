@@ -6,7 +6,7 @@ const SecondPage2 = ({ onNextPage }) => {
 
     return (
         <Panel id="malware-article">
-            <PanelHeader>Вредоносное ПО</PanelHeader>
+            <Header>Вредоносное ПО</Header>
             <Div>
                 <Header mode="secondary">1. Вредоносное ПО</Header>
                 <Text>Это один из наиболее распространенных видов кибератак.</Text>

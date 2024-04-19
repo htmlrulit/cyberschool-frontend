@@ -60,7 +60,6 @@ const Page1 = ({ onNextPage }) => {
                     before={<Avatar size={48} src="images/articles/article-1/phising.png" mode="image" />}
                     text="Фишинг - одна из самых распространенных атак, целью которой является получение
                     конфиденциальной информации, такой как пароли и данные банковских карт."
-                    caption="Читать далее"
                     after={<Icon16CheckCircle />}
                 />
                 <RichCell
@@ -69,7 +68,6 @@ const Page1 = ({ onNextPage }) => {
                     before={<Avatar size={48} src="images/articles/article-1/carder.png" mode="image" />}
                     text="Мошенничество - злоумышленники могут представляться вашими друзьями или знакомыми,
                     чтобы выманивать деньги или конфиденциальные данные."
-                    caption="Читать далее"
                     after={<Icon16CheckCircle />}
                 />
                 <RichCell
@@ -78,7 +76,6 @@ const Page1 = ({ onNextPage }) => {
                     before={<Avatar size={48} src="images/articles/article-1/virus.png" mode="image" />}
                     text="Вредоносные программы - вирусы, трояны и другие вредоносные программы могут
                     навредить вашему устройству и украсть ваши данные."
-                    caption="Читать далее"
                     after={<Icon16CheckCircle />}
                 />
 

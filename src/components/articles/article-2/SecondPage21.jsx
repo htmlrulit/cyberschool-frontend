@@ -3,7 +3,7 @@ const SecondPage21 = ({ onNextPage }) => {
 
     return (
         <Panel id="cyber-security-article-part7">
-            <PanelHeader>35-38</PanelHeader>
+            <Header>35-38</Header>
             <Div>
                 <Header mode="secondary">35. Атаки на протокол</Header>
                 <Text>Использование уязвимостей в сетевых протоколах для получения несанкционированного доступа к

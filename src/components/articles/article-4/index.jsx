@@ -6,6 +6,7 @@ import Page5 from "./Page5";
 import Page6 from "./Page6";
 import Page7 from "./Page7";
 import Page8 from "./Page8";
+import Page9 from "./Page9";
 const article4Pages = [
     Page1,
     Page2,
@@ -14,7 +15,8 @@ const article4Pages = [
     Page5,
     Page6,
     Page7,
-    Page8
+    Page8,
+    Page9
 
 ]
 

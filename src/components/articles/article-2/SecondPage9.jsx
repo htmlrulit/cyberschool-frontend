@@ -3,7 +3,7 @@ const SecondPage9 = ({ onNextPage }) => {
 
     return (
         <Panel id="cyber-security-article-part7">
-            <PanelHeader>8. Криптоджекинг</PanelHeader>
+            <Header>8. Криптоджекинг</Header>
             <Div>
                 <div style={{ overflow: 'hidden', borderRadius: '10px' }}>
                     <img src="/images/articles/article-2/image_8.jpg" alt="Rounded" style={{ width: '100%', height: 'auto' }} />

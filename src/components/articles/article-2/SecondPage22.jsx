@@ -3,7 +3,7 @@ const SecondPage21 = ({ onNextPage }) => {
 
     return (
         <Panel id="cyber-security-article-part7">
-            <PanelHeader>39-42</PanelHeader>
+            <Header>39-42</Header>
             <Div>
                 <Header mode="secondary">39. Червяк</Header>
                 <Text>Реплицирует себя и распространяется на другие компьютеры, но, в отличие от вирусов,
@@ -21,7 +21,7 @@ const SecondPage21 = ({ onNextPage }) => {
                     обслуживании» (DDoS).</Text><br/>
             </Div>
             <Div>
-                <Header mode="secondary">42. Компрометация деловой электронной почты (BEC)</Header>
+                <Header mode="secondary">42. BEC</Header>
                 <Text>Для атак на предприятия и организации используется электронная почта. Злоумышленники выдают
                     себя за доверенный источник, чтобы обманом заставить жертву перевести злоумышленнику
                     деньги или конфиденциальную информацию.</Text><br/>

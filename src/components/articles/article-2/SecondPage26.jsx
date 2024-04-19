@@ -3,7 +3,7 @@ const SecondPage26 = ({ onNextPage }) => {
 
     return (
         <Panel id="cyber-security-article-part7">
-            <PanelHeader>Как предотвратить кибератаки?</PanelHeader>
+            <Header>Предотвращение атак</Header>
             <Div>
                 <Header mode="secondary">Как предотвратить кибератаки?</Header>
                 <Text>Хотя мы рассмотрели несколько способов предотвращения различных типов кибератак, давайте подведем

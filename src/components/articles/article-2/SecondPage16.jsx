@@ -3,7 +3,7 @@ const SecondPage16 = ({ onNextPage }) => {
 
     return (
         <Panel id="cyber-security-article-part7">
-            <PanelHeader>15-18</PanelHeader>
+            <Header>15-18</Header>
             <Div>
                 <Header mode="secondary">15. Туннелирование DNS</Header>
                 <Text>Злоумышленник использует систему доменных имен (DNS) для обхода мер безопасности

@@ -3,7 +3,7 @@ const SecondPage17 = ({ onNextPage }) => {
 
     return (
         <Panel id="cyber-security-article-part7">
-            <PanelHeader>19-22</PanelHeader>
+            <Header>19-22</Header>
             <Div>
                 <Header mode="secondary">19. «отказ в обслуживании» (DDos)</Header>
                 <Text>Наводнение веб-сайта трафиком с целью сделать его недоступным для легитимных

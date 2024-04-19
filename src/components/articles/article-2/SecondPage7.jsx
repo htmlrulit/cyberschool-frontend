@@ -3,7 +3,7 @@ const SecondPage7 = ({ onNextPage }) => {
 
     return (
         <Panel id="cyber-security-article-part7">
-            <PanelHeader>6. На отказ в обслуживании</PanelHeader>
+            <Header>6. DDoS</Header>
             <Div>
                 <Header mode="secondary">6. Атака на отказ в обслуживании</Header>
                 <Text>Атаки типа «отказ в обслуживании» представляют собой серьезную угрозу для компаний.

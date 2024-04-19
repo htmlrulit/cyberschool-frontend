@@ -4,12 +4,12 @@ const SecondPage5 = ({ onNextPage }) => {
 
     return (
         <Panel id="cyber-security-article-part5">
-            <PanelHeader>4. Атака «человек посередине»</PanelHeader>
+            <Header>4. Атака «MITM»</Header>
             <Div>
                 <div style={{ overflow: 'hidden', borderRadius: '10px' }}>
                     <img src="/images/articles/article-2/image_4.jpg" alt="Rounded" style={{ width: '100%', height: 'auto' }} />
                 </div>
-                <Header mode="secondary">4. Атака «человек посередине</Header>
+                <Header mode="secondary">4. Атака MITM</Header>
                 <Text>Атака «человек посередине» (MITM) также известна как атака с подслушиванием.
                     При этой атаке злоумышленник вклинивается между двумя сторонами, т.е. перехватывает сеанс
                     связи между клиентом и хостом. Таким образом, хакеры похищают данные и манипулируют ими.</Text>

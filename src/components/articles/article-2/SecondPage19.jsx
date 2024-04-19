@@ -3,7 +3,7 @@ const SecondPage19 = ({ onNextPage }) => {
 
     return (
         <Panel id="cyber-security-article-part7">
-            <PanelHeader>27-30</PanelHeader>
+            <Header>27-30</Header>
             <Div>
                 <Header mode="secondary">27. Атака грубой силой</Header>
                 <Text>Злоумышленник получает несанкционированный доступ к системе, пробуя различные пароли до тех пор,

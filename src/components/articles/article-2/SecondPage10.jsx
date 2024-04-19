@@ -3,7 +3,7 @@ const SecondPage10 = ({ onNextPage }) => {
 
     return (
         <Panel id="cyber-security-article-part7">
-            <PanelHeader>9. Эксплойт нулевого дня</PanelHeader>
+            <Header>9. Эксплойт 0day</Header>
             <Div>
                 <Header mode="secondary">9. Эксплойт нулевого дня</Header>
                 <Text>Zero-Day Exploit возникает после объявления об уязвимости в сети; в большинстве случаев

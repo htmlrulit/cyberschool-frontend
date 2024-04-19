@@ -1,11 +1,11 @@
-import { Panel, PanelHeader, Div, Text, Header} from '@vkontakte/vkui';
+import {Panel, PanelHeader, Div, Text, Header, Title} from '@vkontakte/vkui';
 const SecondPage13 = ({ onNextPage }) => {
 
     return (
         <Panel id="cyber-security-article-part7">
-            <PanelHeader>12. Идентификация личности</PanelHeader>
+            <Header>12. Идентификация личности</Header>
             <Div>
-                <Header mode="secondary">12. Атаки, основанные на идентификации личности</Header>
+                <Title style={{marginBottom: "10px"}} level="2">Атаки, основанные на идентификации личности</Title>
                 <Text>Выполнение действий, направленных на кражу или манипулирование чужой личной информацией,
                     например, ввод чужих PIN-кодов для кражи несанкционированного доступа к их системам.</Text><br/>
             </Div>

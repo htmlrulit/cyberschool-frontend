@@ -12,7 +12,7 @@ import {
     Progress,
     FormItem,
     Card,
-    Alert
+    Alert, Separator
 } from '@vkontakte/vkui';
 import { formatDistanceToNow, format, isToday, isYesterday } from 'date-fns';
 import ru from "date-fns/locale/ru";
@@ -38,6 +38,22 @@ const TestTab = () => {
             return format(time, 'dd.MM в HH:mm', {locale: ru});
         }
     };
+
+
+    const updateTestList = async () => {
+        try {
+            const userId = await getUserId();
+            const response = await fetch(`https://htvk.ru:3000/tests?user_id=${userId}`);
+            const data = await response.json();
+            setTestResults(data);
+        } catch (error) {
+            console.error('Error updating test list');
+        }
+    };
+
+    useEffect(() => {
+        window.scrollTo(0, 0); // Прокрутить страницу вверх при рендеринге
+    }, []);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -101,22 +117,27 @@ const TestTab = () => {
     }
 
     return (
+
         <ConfigProvider isWebView={true}>
             <>
                 <PanelHeader left={<PanelHeaderButton/>}>
                     {selectedTraining ? 'Тест' : 'Тестирование'}
                 </PanelHeader>
+
                 {selectedTraining ? (
-                    <TestPage training={selectedTraining} onFinish={handleCloseTest} testId={selectedTraining.id}/>
+                    <TestPage training={selectedTraining} onFinish={handleCloseTest} testId={selectedTraining.id} updateTestList={updateTestList} />
                 ) : (
-                    <Div className="test-container">
+                    <div>
                         {questionsData.map((test, index) => {
                             const result = testResults.find(result => result.id === test.id);
                             let correctPercentage = result ? (result.score / test.count) * 100 : 0;
                             let appearance = correctPercentage >= 70 ? "positive" : (correctPercentage <= 30 ? "negative" : "accent");
 
                             return (
+
                                 <Banner
+
+                                    style={{marginBottom: "10px" }}
                                     key={`question-${test.id}-${index}`}
                                     size="medium"
                                     header={test.name}
@@ -200,7 +221,7 @@ const TestTab = () => {
                                 />
                             );
                         })}
-                    </Div>
+                    </div>
                 )}
                 {selectedTraining && (
                     <CellButton onClick={handleCloseTest} centered before={<Icon28DeleteOutline/>} mode="danger">

@@ -3,7 +3,7 @@ const SecondPage18 = ({ onNextPage }) => {
 
     return (
         <Panel id="cyber-security-article-part7">
-            <PanelHeader>23-26</PanelHeader>
+            <Header>23-26</Header>
             <Div>
                 <Header mode="secondary">23. Фишинговые атаки на китов</Header>
                 <Text>Нацелены на высокопоставленных лиц, таких как руководители или знаменитости,

@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Div, Radio, Text, Title} from '@vkontakte/vkui';
+import {Button, Checkbox, Div, Progress, Radio, Text, Title} from '@vkontakte/vkui';
 import bridge from '@vkontakte/vk-bridge';
 import md5 from 'md5';
 import {Cell, Pie, PieChart, Tooltip} from 'recharts';
 import './TestPage.css';
 
-const TestPage = ({ training, onFinish, testId }) => {
+const TestPage = ({ training, onFinish, testId, updateTestList }) => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [selectedOption, setSelectedOption] = useState(null);
     const [showResult, setShowResult] = useState(false);
@@ -13,12 +13,21 @@ const TestPage = ({ training, onFinish, testId }) => {
     const [answers, setAnswers] = useState([]);
     const [chartData, setChartData] = useState(null);
     const questions = training ? training.questions : [];
+    const [progress, setProgress] = useState(0);
+    const [isSubmitted, setIsSubmitted] = useState(false);
     const clientSecret = 'juUglL4f9pJxPVPhxQOq';
+    const [savingResults, setSavingResults] = useState(false);
     const handleOptionSelect = (optionIndex) => {
         if (!showResult) {
             setSelectedOption(optionIndex);
         }
     };
+
+
+
+    useEffect(() => {
+        setProgress((currentQuestionIndex / (questions.length - 1)) * 100);
+    }, [currentQuestionIndex, questions.length]);
 
     const getUserId = async () => {
         try {
@@ -58,7 +67,6 @@ const TestPage = ({ training, onFinish, testId }) => {
             }
             if (currentQuestionIndex + 1 === questions.length) {
                 setShowResult(true);
-                handleFinishTest();
             } else {
                 setCurrentQuestionIndex(prevIndex => prevIndex + 1);
             }
@@ -67,19 +75,22 @@ const TestPage = ({ training, onFinish, testId }) => {
         }
     };
 
+
+
+
     useEffect(() => {
-        if (showResult && score !== 0) {
-            handleFinishTest();
-        }
     }, [showResult, score]);
 
     const handleFinishTest = async () => {
-
-        const userId = await getUserId();
+        if (isSubmitted || savingResults) return;
+        setIsSubmitted(true);
+        setSavingResults(true);
 
         try {
-            const launchParams = await bridge.send('VKWebAppGetLaunchParams');
+            const userId = await getUserId(); // Получаем userId
+            console.log('userId:', userId); // Проверяем, получилось ли
 
+            const launchParams = await bridge.send('VKWebAppGetLaunchParams');
             const timestamp = Date.now().toString();
             const signedParams = {
                 ...launchParams,
@@ -90,27 +101,28 @@ const TestPage = ({ training, onFinish, testId }) => {
                 totalQuestions: questions.length
             };
 
-
             const signature = await generateSignature(signedParams);
             signedParams.sign = signature;
-
             const response = await fetch('https://htvk.ru:3000/save-test-result', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-Launch-Params': JSON.stringify(launchParams), // Передача параметров запуска
-                    'X-Signature': signature // Передача подписи
+                    'X-Launch-Params': JSON.stringify(launchParams),
+                    'X-Signature': signature
                 },
                 body: JSON.stringify(signedParams)
             });
 
+            onFinish();
+            updateTestList();
         } catch (error) {
             console.error('client: Ошибка при сохранении ответа на сервер');
+        } finally {
+            setIsSubmitted(false);
+            setSavingResults(false);
+            console.log("Результаты теста закрыты");
         }
     };
-
-
-
 
     useEffect(() => {
         const calculateChartData = () => {
@@ -123,72 +135,81 @@ const TestPage = ({ training, onFinish, testId }) => {
                     incorrectCount++;
                 }
             }
-            return [{ name: 'Верно', value: correctCount }, { name: 'Неверно', value: incorrectCount }];
+            return [{ name: '✅', value: correctCount }, { name: '🚫', value: incorrectCount }];
         };
 
         if (showResult) {
             const data = calculateChartData();
             setChartData(data);
+            console.log('Total score:', score);
         }
-    }, [answers, showResult]);
+    }, [answers, showResult, score]);
 
     return (
         <Div>
             {showResult ? (
                 <Div>
-                    <Title>Результаты теста:</Title>
+                    <Title>Результаты теста</Title>
                     <Text>Правильных ответов: {score} из {questions.length}</Text>
-
-                    <Div className="chart-container">
-                        <PieChart width={400} height={250}>
-                            <Pie
-                                data={chartData}
-                                cx={200}
-                                cy={100}
-                                labelLine={true}
-                                label={({ name, value }) => `${name}: ${value}`}
-                                outerRadius={75}
-                                fill="#8884d8"
-                                dataKey="value"
-                            >
-                                {chartData && chartData.map((entry, index) => (
-                                    <Cell key={`cell-${index}`} fill={index === 0 ? '#82ca9d' : '#ff7f0e'} />
-                                ))}
-                            </Pie>
-                            <Tooltip />
-                        </PieChart>
-                    </Div>
+                    <Text style={{marginTop: "10px", marginBottom: "5px"}}>Если Вы удовлетворены данными
+                        результатами — нажмите на кнопку ниже
+                    для сохранения результатов тестирования.</Text>
+                    <Button size="l" stretched={true} onClick={handleFinishTest}>
+                        Сохранить результаты
+                    </Button>
+                    <PieChart width={300} height={250} margin={{ left: 0 }}>
+                        <Pie
+                            data={chartData}
+                            labelLine={true}
+                            label={({ name, value }) => `${name}: ${value}`}
+                            outerRadius={75}
+                            fill="#8884d8"
+                            dataKey="value"
+                            borderWidth={2}
+                            borderColor="#fff"
+                            borderDash={[5, 5]}
+                            borderDashOffset={0}
+                            borderJoinStyle="round"
+                            borderRadius={10}
+                        >
+                            {chartData && chartData.map((entry, index) => (
+                                <Cell key={`cell-${index}`} fill={index === 0 ? '#1d6b1d' : '#771010'} />
+                            ))}
+                        </Pie>
+                        <Tooltip animationBegin={0} animationDuration={200} />
+                    </PieChart>
                     {questions.map((question, index) => (
                         <Div key={index} className="question-wrapper">
                             <Title level="3">{index + 1}. {question.question}</Title>
                             {question.options.map((option, optionIndex) => (
                                 <Radio
                                     key={optionIndex}
-                                    name={`question-${index}`}
-                                    defaultChecked={optionIndex === question.correctIndex}
+                                    checked={
+                                        answers[index] &&
+                                        answers[index].selectedOption === optionIndex
+                                    }
                                     disabled
-                                    className={answers[index] &&
-                                    answers[index].selectedOption === optionIndex &&
-                                    answers[index].isCorrect
-                                        ? 'correct-answer'
-                                        : answers[index] &&
+                                    className={
+                                        answers[index] &&
                                         answers[index].selectedOption === optionIndex &&
-                                        !answers[index].isCorrect
-                                            ? 'incorrect-answer'
-                                            : ''}
+                                        answers[index].isCorrect
+                                            ? 'correct-answer'
+                                            : answers[index] &&
+                                            answers[index].selectedOption === optionIndex &&
+                                            !answers[index].isCorrect
+                                                ? 'incorrect-answer'
+                                                : ''
+                                    }
                                 >
                                     {option}
                                 </Radio>
                             ))}
 
-                            {answers[index] &&
-                                (answers[index].isCorrect ? (
-                                    <Div className="correct-answer-badge">Верно</Div>
-                                ) : (
-                                    <Div className="incorrect-answer-badge">
-                                        Правильный ответ: {question.options[question.correctIndex]}
-                                    </Div>
-                                ))}
+                            {answers[index] && (
+                                <Div className={answers[index].isCorrect ? 'correct-answer-badge' : 'incorrect-answer-badge'}>
+                                    {answers[index].isCorrect ? 'Верный ответ' : 'Неверный ответ'}
+                                </Div>
+                            )}
                         </Div>
                     ))}
                 </Div>
@@ -217,6 +238,7 @@ const TestPage = ({ training, onFinish, testId }) => {
                             </Radio>
                         ))}
                     </Div>
+                    <Progress style={{marginBottom: "12px"}} value={progress} />
                     <Button size="l" stretched={true} disabled={selectedOption === null || showResult} onClick={handleNextQuestion}>
                         {currentQuestionIndex === questions.length - 1 ? 'Завершить тест' : 'Следующий вопрос'}
                     </Button>

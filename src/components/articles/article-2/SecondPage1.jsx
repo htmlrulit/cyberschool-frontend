@@ -1,10 +1,10 @@
-import {Panel, PanelHeader, Div, Text, Header, Card} from '@vkontakte/vkui';
+import {Panel, PanelHeader, Div, Text, Header, Card, Title} from '@vkontakte/vkui';
 const SecondPage1 = ({ onNextPage }) => {
 
     return (
         <Panel id="cyber-security-article">
-            <PanelHeader>Виды кибер-атак</PanelHeader>
-                <Header mode="secondary">Основные опасности интернета</Header>
+            <Header mode="secondary">Виды атак</Header>
+                <Title style={{marginBottom: "10px"}} level="2">Основные опасности интернета</Title>
                 <Card size="l" mode="shadow">
                     <Div>
                         <Text weight="regular">

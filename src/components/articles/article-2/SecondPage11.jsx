@@ -3,7 +3,7 @@ const SecondPage11 = ({ onNextPage }) => {
 
     return (
         <Panel id="cyber-security-article-part7">
-            <PanelHeader>10. Нападение на водопой</PanelHeader>
+            <Header>10. Нападение на водопой</Header>
             <Div>
                 <Header mode="secondary">10. Нападение на водопой</Header>
                 <Text>В данном случае жертвой является определенная группа людей в организации, регионе и т.д.

@@ -3,7 +3,7 @@ const SecondPage27 = ({ onNextPage }) => {
 
     return (
         <Panel id="cyber-security-article-part7">
-            <PanelHeader>Эволюция кибербезопасности</PanelHeader>
+            <Header>Эволюция кибербезопасности</Header>
             <Div>
                 <Header mode="secondary">Эволюция кибербезопасности</Header>
                 <Text>Эволюцию кибербезопасности можно проследить на заре развития вычислительной техники,

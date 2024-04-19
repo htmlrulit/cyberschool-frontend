@@ -2,9 +2,8 @@ import { Panel, PanelHeader, Div, Text, Header} from '@vkontakte/vkui';
 const SecondPage3 = ({ onNextPage }) => {
     return (
         <Panel id="cyber-security-article-part3">
-            <PanelHeader>2. Фишинговая атака</PanelHeader>
+            <Header>Фишинговая атака</Header>
             <Div>
-                <Header mode="secondary">2. Фишинговая атака</Header>
                 <Text>Фишинговые атаки — один из самых распространенных видов кибератак. Это один из видов
                     социально-инженерных атак, в ходе которого злоумышленник выдает себя за доверенного человека и
                     рассылает жертве фальшивые письма.</Text><br/>
