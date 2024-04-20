@@ -60,7 +60,7 @@ const TrainingTab = ({ id, openModal, onFinish }) => {
         <>
             {!selectedMaterial ? (
                 <Panel id="training">
-                    <PanelHeader>Обучение</PanelHeader>
+                    <PanelHeader style={{marginBottom: "10px"}}>Обучение</PanelHeader>
 
                         {materials.slice(0, 4).map((material, index) => (
                             <Banner

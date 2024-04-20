@@ -15,7 +15,7 @@ const TestPage = ({ training, onFinish, testId, updateTestList }) => {
     const questions = training ? training.questions : [];
     const [progress, setProgress] = useState(0);
     const [isSubmitted, setIsSubmitted] = useState(false);
-    const clientSecret = 'juUglL4f9pJxPVPhxQOq';
+    const clientSecret = '';
     const [savingResults, setSavingResults] = useState(false);
     const handleOptionSelect = (optionIndex) => {
         if (!showResult) {
@@ -87,8 +87,8 @@ const TestPage = ({ training, onFinish, testId, updateTestList }) => {
         setSavingResults(true);
 
         try {
-            const userId = await getUserId(); // Получаем userId
-            console.log('userId:', userId); // Проверяем, получилось ли
+            const userId = await getUserId();
+            console.log('userId:', userId);
 
             const launchParams = await bridge.send('VKWebAppGetLaunchParams');
             const timestamp = Date.now().toString();

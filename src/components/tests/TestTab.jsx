@@ -52,7 +52,7 @@ const TestTab = () => {
     };
 
     useEffect(() => {
-        window.scrollTo(0, 0); // Прокрутить страницу вверх при рендеринге
+        window.scrollTo(0, 0);
     }, []);
 
     useEffect(() => {
@@ -120,7 +120,7 @@ const TestTab = () => {
 
         <ConfigProvider isWebView={true}>
             <>
-                <PanelHeader left={<PanelHeaderButton/>}>
+                <PanelHeader  style={{marginBottom: "10px"}} left={<PanelHeaderButton/>}>
                     {selectedTraining ? 'Тест' : 'Тестирование'}
                 </PanelHeader>
 

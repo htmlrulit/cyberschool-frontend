@@ -1,22 +1,10 @@
-import React, { useState, useEffect, Suspense } from 'react';
+import React, {useState, useEffect, useRef, Suspense} from 'react';
 import bridge from '@vkontakte/vk-bridge';
-import { useAppearance } from '@vkontakte/vk-bridge-react';
+import { useAppearance} from '@vkontakte/vk-bridge-react';
 import {
-  View,
-  AdaptivityProvider,
-  AppRoot,
-  ConfigProvider,
-  SplitLayout,
-  SplitCol,
-  FixedLayout,
-  ModalRoot,
-  ModalPage,
-  ModalPageHeader,
-  Button,
-  Text,
-  Snackbar,
-  Tabbar,
-  TabbarItem, Group, Placeholder, Div, Header
+  View, AdaptivityProvider, AppRoot, ConfigProvider, SplitLayout, SplitCol,
+  FixedLayout, ModalRoot, ModalCard, Button, Text, Snackbar, Tabbar,
+  TabbarItem, Group, Placeholder, Div, ModalPage, ModalPageHeader, usePlatform, useAdaptivityConditionalRender
 } from '@vkontakte/vkui';
 import { CSSTransition } from 'react-transition-group';
 import '@vkontakte/vkui/dist/vkui.css';
@@ -24,16 +12,19 @@ import Home from './panels/Home';
 import TestTab from './components/tests/TestTab.jsx';
 import ProfileTab from './components/ProfileTab';
 import TrainingTab from './components/TrainingTab';
+import "./ModalPage.css";
 import axios from "axios";
 import {
   Icon28CheckCircleFill,
   Icon28CheckCircleOutline,
   Icon28MessageOutline,
   Icon28NewsfeedOutline,
-  Icon28UserCircleOutline
+  Icon28UserCircleOutline, Icon56GestureOutline, Icon56NotificationOutline
 } from "@vkontakte/icons";
 
 const App = () => {
+  const [modalStyle, setModalStyle] = useState({});
+  const modalRef = useRef(null);
   const [activeTab, setActiveTab] = useState('training');
   const [activePanel, setActivePanel] = useState('home');
   const [activeModal, setActiveModal] = useState(null);
@@ -43,8 +34,9 @@ const App = () => {
   const [selectedTraining, setSelectedTraining] = useState(null);
   const [view, setView] = useState('training');
   const [showSnackbar, setShowSnackbar] = useState(null);
-
+  const platform = usePlatform();
   const appearance = useAppearance();
+  const { sizeX } = useAdaptivityConditionalRender();
 
   useEffect(() => {
     const checkFirstVisit = () => {
@@ -54,27 +46,36 @@ const App = () => {
       }
     };
 
-    checkFirstVisit();
-    bridge.subscribe(({ detail: { type } }) => {
-      if (type === 'VKWebAppUpdateConfig') {
+    const updateModalPosition = () => {
+      if (modalRef.current) {
+        const modalHeight = modalRef.current.offsetHeight;
+        const topOffset = Math.max((window.innerHeight - modalHeight) / 2, 0);
+        setModalStyle({
+          top: `${topOffset}px`
+        });
       }
-    });
+    };
+
+    checkFirstVisit();
+    window.addEventListener('resize', updateModalPosition);
+    updateModalPosition(); // Вызываем при монтировании компонента
+
+    return () => {
+      window.removeEventListener('resize', updateModalPosition);
+    };
   }, []);
 
   const openModal = (modalId) => {
-    switch (modalId) {
-      case 'congratulation':
-        setActiveModal(modalId);
-        break;
-      default:
-        console.error('Unknown modal ID');
-        break;
-    }
+    setActiveModal(modalId);
+  };
+
+  const closeModal = () => {
+    setActiveModal(null);
   };
 
   const handleFinishTraining = async () => {
+    const points = 100;
     try {
-      const points = 100;
       const response = await axios.put(`https://htvk.ru:3000/api/user/${userId}/score`, { points });
       const updatedUser = response.data;
       setScore(updatedUser.score);
@@ -87,10 +88,6 @@ const App = () => {
   const handleFinishTest = () => {
     setShowTestPage(false);
     setActiveTab('tests');
-  };
-
-  const closeModal = () => {
-    setActiveModal(null);
   };
 
   const handleShowSnackbar = (message) => {
@@ -122,40 +119,42 @@ const App = () => {
                 </View>
               </SplitCol>
 
-              <FixedLayout filled vertical="bottom">
-                <Tabbar>
-                  <TabbarItem
-                      selected={activeTab === 'tests'}
-                      onClick={() => {
-                        setActiveTab('tests');
-                        setView('tests');
-                      }}
-                      text="Тесты"
-                  >
-                    <Icon28NewsfeedOutline />
-                  </TabbarItem>
-                  <TabbarItem
-                      selected={activeTab === 'training'}
-                      onClick={() => {
-                        setActiveTab('training');
-                        setView('training');
-                      }}
-                      text="Обучение"
-                  >
-                    <Icon28MessageOutline />
-                  </TabbarItem>
-                  <TabbarItem
-                      selected={activeTab === 'profile'}
-                      onClick={() => {
-                        setActiveTab('profile');
-                        setView('profile');
-                      }}
-                      text="Профиль"
-                  >
-                    <Icon28UserCircleOutline />
-                  </TabbarItem>
-                </Tabbar>
-              </FixedLayout>
+              {activeModal !== 'welcome' && (
+                  <FixedLayout filled vertical="bottom" className="FixedLayout">
+                    <Tabbar>
+                      <TabbarItem
+                          selected={activeTab === 'tests'}
+                          onClick={() => {
+                            setActiveTab('tests');
+                            setView('tests');
+                          }}
+                          text="Тесты"
+                      >
+                        <Icon28NewsfeedOutline />
+                      </TabbarItem>
+                      <TabbarItem
+                          selected={activeTab === 'training'}
+                          onClick={() => {
+                            setActiveTab('training');
+                            setView('training');
+                          }}
+                          text="Обучение"
+                      >
+                        <Icon28MessageOutline />
+                      </TabbarItem>
+                      <TabbarItem
+                          selected={activeTab === 'profile'}
+                          onClick={() => {
+                            setActiveTab('profile');
+                            setView('profile');
+                          }}
+                          text="Профиль"
+                      >
+                        <Icon28UserCircleOutline />
+                      </TabbarItem>
+                    </Tabbar>
+                  </FixedLayout>
+              )}
             </SplitLayout>
 
             {showSnackbar}
@@ -170,48 +169,22 @@ const App = () => {
               </Suspense>
             </CSSTransition>
 
-            <ModalRoot activeModal={activeModal}>
-
-              <ModalPage
+            <ModalRoot activeModal={activeModal} className="ModalRoot">
+              <ModalCard
                   id="welcome"
-                  settlingWidth={90}
                   onClose={closeModal}
-                  header={
-                    <ModalPageHeader>
-                      КиберШкола
-                    </ModalPageHeader>
-                  }
-              >
-                <Group>
-                  <Div>
-                  <Header>Добро пожаловать в КиберШколу!</Header>
-                  <Text style={{marginLeft: "5%"}}>Присоединяйтесь к пользователям, которые уже улучшают свои
-                    знания в киберпространстве! «КиберШкола» предлагает широкий спектр тестов по тематике безопасности
-                    в Интернете, что позволяет Вам проверять и углублять знания в интересующих вас областях.</Text>
-                  <Text style={{marginLeft: "5%", marginTop: "10px", marginBottom: "5px"}}>Возможности, которые
-                    Вы полюбите:</Text>
-                  <li style={{marginLeft: "5%"}}>Курсы: читайте минималистичные, но подробные курсы на тему
-                    безопасности в киберпространстве;</li>
-                  <li style={{marginLeft: "5%"}}>Тесты: проходите тесты, чтобы закрепить свои знания;</li>
-                  <li style={{marginLeft: "5%"}}>Рейтинг: соревнуйтесь с другими пользователями своими достижениями
-                    в тестах;</li>
-                  <li style={{marginLeft: "5%"}}>Аналитика и отчеты: следите за своим прогрессом с помощью статистики
-                    и отчетов.</li>
-                  <Text style={{marginLeft: "5%", marginTop: "10px", marginBottom: "5px"}}>Начните свое обучение с
-                    «КиберШколой» сегодня и сделайте большой шаг
-                    к достижению своих образовательных и профессиональных целей!</Text>
-                  <Text style={{marginLeft: "5%", marginTop: "10px", marginBottom: "5px"}}>Приложение предоставляется
-                    на бесплатной основе и не преследует
-                    цель монетизации трудов. Вся информация курсов и тестов взята с открытых источников и перенесена
-                    в приложение с некоторыми изменениями.</Text>
-                  <Text style={{marginLeft: "5%", marginTop: "10px", marginBottom: "50px"}}>Если Вы нашли недочёт
-                    или ошибку в курсе/тесте, то Вы всегда можете
-                    сообщить об этом <a href="https://vk.com/cyberschool_app" target="_blank">нам</a>. Спасибо!</Text>
-                  </Div>
-                </Group>
-              </ModalPage>
-
-
+                  icon={<Icon56GestureOutline />}
+                  header="Добро пожаловать в КиберШколу!"
+                  subheader="«КиберШкола» предлагает широкий спектр тестов по тематике безопасности
+                    в Интернете, что позволяет Вам проверять и углублять знания в интересующих вас областях."
+                  actions={<React.Fragment>
+                    <Button size="l" mode="primary" stretched onClick={closeModal}
+                    >Начать обучение</Button>
+                  </React.Fragment>}
+                  actionsLayout="vertical"
+                  style={modalStyle}
+                  ref={modalRef}
+              />
               <ModalPage
                   id="congratulation"
                   onClose={() => {
